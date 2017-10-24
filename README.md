@@ -305,3 +305,78 @@ This leads you to an style abomination that will make you cringe :) but uses all
 * usage of static assets for your designs from the _./static_ folder
 * inline css and separated css styles in their own files
 * separation of styles into their own functions to allow you to import only necessary styles
+
+
+
+## 03 Bootstrap 4
+
+Trying to figure out the best way to add Bootstrap to the Mix - for now I will just add the CDN links to the layout Component in _./components/layout_. This works just like the template component with React-Helmet in create-react-app:
+
+```js
+import Link from 'next/link'
+import Head from 'next/head'
+import NavBar from './navbar'
+
+
+export default ({ children, title = 'This is the default title' }) => (
+  <div>
+    <Head>
+      <title>{ title }</title>
+      <meta charSet='utf-8' />
+      <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossOrigin="anonymous" />
+    </Head>
+    <header>
+      <NavBar />
+    </header>
+
+      <div className="container">
+        <div className="row">
+          <br/><br/><br/><br/>
+          { children }
+        </div>
+      </div>
+
+    <footer>
+      {'I`m a Footer Component'}
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossOrigin="anonymous" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossOrigin="anonymous" />
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossOrigin="anonymous" />
+    </footer>
+  </div>
+)
+```
+
+As a first bootstrap component, I added the __Bootstrap 4 Navbar__ we created earlier and imported it into the header area above:
+
+```js
+import Link from 'next/link'
+
+const NavBar = () => (
+  <div>
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top mb">
+      <Link href="/"><a className="nav-item nav-link"><img src="/static/rr4_s.png" alt="INSTAR Wiki" /></a></Link>
+
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#TopNavbar" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div className="collapse navbar-collapse" id="TopNavbar">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link href="/page-1"><a className="nav-item nav-link">Page 1</a></Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/page-2"><a className="nav-item nav-link">Page 2</a></Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/nested-routes"><a className="nav-item nav-link">Nested Routes</a></Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+)
+
+export default NavBar
+```
