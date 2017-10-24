@@ -347,7 +347,7 @@ export default ({ children, title = 'This is the default title' }) => (
 )
 ```
 
-As a first bootstrap component, I added the __Bootstrap 4 Navbar__ we created earlier and imported it into the header area above:
+As a first bootstrap component, I added the __Bootstrap 4 Navbar__ we [created earlier](https://github.com/mpolinowski/react-router-4/blob/master/src/index.js) and imported it into the header area above:
 
 ```js
 import Link from 'next/link'
