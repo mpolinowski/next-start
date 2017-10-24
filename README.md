@@ -21,13 +21,14 @@ export default ({ color }) => (
 ```
 
 All righty, lets go then!
-
+---
 
 
 __TOC__
 
 01. [Basic Setup](#01-basic-setup)
 02. [Styling](#02-styling)
+  * [Example](#example)
 
 ## 01 Basic Setup
 
@@ -232,3 +233,75 @@ const Button = (props) => (
   </button>
 )
 ```
+
+## Example
+
+_./pages/index.js_
+
+```js
+import styles, { hipsterum, imagefloat } from './styles/hipsterum'
+
+export default () =>
+  <div>
+
+    <h1>Welcome to next.js!</h1>
+    <h3>The awesome World of Server-side Rendering</h3>
+    <h5>lets see what this is all about</h5>
+    <img src="/static/test.png" className="imagefloat"/>
+    <p className="hipsterum">
+      [ipsum...]
+    </p>
+
+    <style jsx>{`
+      h1, h5 {
+        color: white;
+      }
+      @media (max-width: 600px) {
+        h1, h5 {
+          color: black;
+        }
+      }
+    `}</style>
+
+    <style global jsx>{`
+      body {
+        background: black;
+      }
+      @media (max-width: 600px) {
+        body {
+          background-image: url("/static/test.png");
+        }
+      }
+    `}</style>
+
+    <style jsx>{styles}</style>
+    <style jsx>{imagefloat}</style>
+    <style jsx>{hipsterum}</style>
+
+  </div>
+```
+
+_./pages/styles/hipsterum.js_
+
+```js
+import css from 'styled-jsx/css'
+
+export const hipsterum = css`.hipsterum {
+    color: blue;
+    text-align: justify;
+  }`
+
+export const imagefloat = css`.imagefloat {
+    float:right;
+    margin-left:10px;
+  }`
+
+export default css`h3 { color: red; }`
+```
+
+This leads you to an style abomination that will make you cringe :) but uses all the important features of Style-JSX:
+
+* \@media queries for responsive designs
+* usage of static assets for your designs from the _./static_ folder
+* inline css and separated css styles in their own files
+* separation of styles into their own functions to allow you to import only necessary styles
