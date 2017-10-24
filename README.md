@@ -28,7 +28,7 @@ __TOC__
 
 01. [Basic Setup](#01-basic-setup)
 02. [Styling](#02-styling)
-  * [Example](#example)
+    * [Example](#example)
 
 ## 01 Basic Setup
 
