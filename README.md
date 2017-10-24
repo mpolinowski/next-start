@@ -20,10 +20,10 @@ export default ({ color }) => (
   )
 ```
 
-Table of Topics
+__Table of Topics__
 
-01 [Basic Setup](#01-basic-setup)
-02 [Styling](#02-styling)
+01. [Basic Setup](#01-basic-setup)
+02. [Styling](#02-styling)
 
 ## 01 Basic Setup
 
