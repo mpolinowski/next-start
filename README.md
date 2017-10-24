@@ -24,7 +24,7 @@ All righty, lets go then!
 
 
 
-__Table of Topics__
+__TOC__
 
 01. [Basic Setup](#01-basic-setup)
 02. [Styling](#02-styling)
@@ -189,7 +189,7 @@ const Button = ({ padding, children }) => (
 )
 ```
 
-In this example, the padding defaults to the one set in <style> (20), but the user can pass a custom one via <Button padding={30}>.
+In this example, the padding defaults to the one set in \<style\> (20), but the user can pass a custom one via \<Button padding={30}\>.
 
 
 It is possible to use constants like so:
