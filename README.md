@@ -395,3 +395,98 @@ Lets try out __next-routes__ for this example:
 ```
 npm install next-routes --save
 ```
+
+__Ok, this basically wrecked the whole application__
+
+I will copy the code to _./next-routes-wtf_ and - maybe try it again later... The result is very inconsistent. You can click on a link and the page loads just fine. If you click on the same link again, or just reload the page, or copy it's URL into another browser, you are very likely to end up seeing the 404 page.
+
+
+Ok - so lets try Express.js now, since I wanted to use it for deployment anyhow. [Brandon Richey](https://medium.com/@diamondgfx/nextjs-lessons-learned-part-2-f1781237cf5c) says, that he ran into the same problems I had with _next-routes_, when using the [official documentation](https://github.com/zeit/next.js/tree/master/examples) for the _custom server.js_ setup. So I will stay away from it for now and try his version.
+
+First install [Express.js](http://expressjs.com) from npm:
+
+```
+npm install --save express
+```
+
+then edit _./server.js_ to the following:
+
+```js
+const express = require('express');
+const { parse } = require('url');
+const next = require('next');
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
+app.prepare().then(() => {
+  const server = express();
+  // CUSTOM ROUTES GO HERE
+  server.get('/products/:slug', (req, res) => {
+    const mergedQuery = Object.assign({}, req.query, req.params);
+    return app.render(req, res, '/products', mergedQuery);
+  });
+  // THIS IS THE DEFAULT ROUTE, DON'T EDIT THIS
+  server.get('*', (req, res) => {
+    return handle(req, res);
+  });
+  const port = process.env.PORT || 3000;
+
+  server.listen(port, err => {
+    if (err) throw err;
+    console.log(`> Ready on port ${port}...`);
+  });
+});
+```
+
+This will give you a param that gets sent to your blog.js component inside of your pages/ directory and give you the custom routing that you want! The client-side linking, assuming we have the route setup above /products/:slug, your links to specific slugs would need to be structure using next/link’s Link component via the following:
+
+```js
+<Link href={`/blog?slug=${slug}`} as={`/blog/${slug}`} prefetch>
+  ...
+</Link>
+```
+
+__as__ is what the user will see in their browser, but __href__ is what next.js will interpret to figure out how things need to get routed. _Both of these steps are required to make the link behavior and routing behavior behave the same no matter where the page is rendered from!_
+
+
+
+Finally, you’ll need to modify your package.json file to include everything so that next.js knows how to run the server.js file:
+
+```
+"scripts": {
+  "dev": "node server.js",
+  "build": "next build",
+  "start": "NODE_ENV=production node server.js",
+}
+```
+
+Now you can continue to run your dev server with npm run dev and you can build/start your production server as well!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
