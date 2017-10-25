@@ -25,10 +25,10 @@ const NavBar = () => (
     </nav>
 
     <style jsx>{`
-          img {
-            height: 50px;
-            width: 160px;
-          }
+        img {
+          height: 50px;
+          width: 160px;
+        }
         `}</style>
 
     </div>
@@ -36,3 +36,11 @@ const NavBar = () => (
 
 
 export default NavBar
+
+
+
+
+// img {
+//   height: 40px;
+//   width: 128px;
+// }
