@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 const NavBar = () => (
   <div>
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top mb">
-      <Link href="/"><a className="nav-item nav-link"><img src="/static/rr4_s.png" alt="INSTAR Wiki" /></a></Link>
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark sticky-top mb">
+      <Link href="/"><a className="nav-item nav-link"><img src="/static/logo.svg" alt="INSTAR Wiki" /></a></Link>
 
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#TopNavbar" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -23,7 +23,16 @@ const NavBar = () => (
         </ul>
       </div>
     </nav>
-  </div>
+
+    <style jsx>{`
+          img {
+            height: 50px;
+            width: 160px;
+          }
+        `}</style>
+
+    </div>
 )
+
 
 export default NavBar

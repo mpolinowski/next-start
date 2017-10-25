@@ -20,7 +20,7 @@ export default ({ color }) => (
   )
 ```
 
-All righty, lets go then!
+There are many different [examples available](https://github.com/zeit/next.js/tree/master/examples) to start building your App. All righty, lets go then!
 ---
 
 
@@ -355,7 +355,7 @@ import Link from 'next/link'
 const NavBar = () => (
   <div>
     <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top mb">
-      <Link href="/"><a className="nav-item nav-link"><img src="/static/rr4_s.png" alt="INSTAR Wiki" /></a></Link>
+      <Link href="/"><a className="nav-item nav-link"><img src="/static/logo.svg" alt="INSTAR Wiki" /></a></Link>
 
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#TopNavbar" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -379,4 +379,19 @@ const NavBar = () => (
 )
 
 export default NavBar
+```
+
+
+
+## 04 Advanced Routing
+
+As we already see, Next.js builds routes for each component it finds inside the _./pages_ directory. So our index component shows up at the root URL, without us having to do anything - sweet. But what if we need nested routes for our components - say _page01_ is a child of _chapter01_ and we want it to appear when we type in _localhost:3000/chapter01/page01_ ? There are two ways that I found so far:
+
+* next-routes: a neat little [npm module](https://www.npmjs.com/package/next-routes) from also featured as an [Example @Zeit](https://github.com/zeit/next.js/tree/master/examples/with-next-routes).
+* Using an Express.js webserver as featured [@Zeit](https://github.com/zeit/next.js/tree/master/examples/custom-server-express) and [@Medium](https://medium.com/@diamondgfx/nextjs-lessons-learned-part-2-f1781237cf5c)
+
+Lets try out __next-routes__ for this example:
+
+```
+npm install next-routes --save
 ```
