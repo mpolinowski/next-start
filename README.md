@@ -21,6 +21,7 @@ export default ({ color }) => (
 ```
 
 There are many different [examples available](https://github.com/zeit/next.js/tree/master/examples) to start building your App. All righty, lets go then!
+
 ---
 
 
