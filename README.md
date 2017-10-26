@@ -36,6 +36,13 @@ __TOC__
 01. [Basic Setup](#01-basic-setup)
 02. [Styling](#02-styling)
     * [Example](#example)
+03. [Bootstrap 4](#03-bootstrap-4)
+04. [Advanced Routing](#04-advanced-routing)
+
+
+
+
+
 
 ## 01 Basic Setup
 
@@ -400,7 +407,7 @@ As we already see, Next.js builds routes for each component it finds inside the 
 ~~Lets try out __next-routes__ for this example:~~
 
 
-~~npm install next-routes --save~~
+~~npm install next-routes --save~~ [...]
 
 
 __Ok, this basically wrecked the whole application__
@@ -506,6 +513,7 @@ export default class extends React.Component {
 
 This will load the corresponding posts when you add the right slugs for it - _/Products/Outdoor_Cameras_ or _/Products/Indoor_Cameras_ or defaults to whatever you add here: _if (!post) return \<Layout\>\<h1\>Products\</h1\>\</Layout\>_ in case that no match is found.
 
+
 Finally, you’ll need to modify your package.json file to include everything so that next.js knows how to run the server.js file:
 
 ```
@@ -516,32 +524,3 @@ Finally, you’ll need to modify your package.json file to include everything so
 ```
 
 Now you can continue to run your dev server with npm run dev and you can build/start your production server as well!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.
