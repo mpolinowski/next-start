@@ -1,5 +1,4 @@
 import Layout from '../components/layout'
-import { Link, Router } from '../routes'
 
 export default () =>
     <Layout>
@@ -10,16 +9,6 @@ export default () =>
           <h3>The awesome World of Server-side Rendering</h3>
           <h5>let's see what this is all about</h5>
           <br/><br/>
-        </section>
-
-        <section className="container">
-          <ul>
-            <li><Link route='products' params={{ slug: 'indoor-cameras' }}><a>Indoor Cameras</a></Link></li>
-            <li><Link route='products' params={{ slug: 'outdoor-cameras' }}><a>Outdoor Cameras</a></Link></li>
-            <li><Link route='products' params={{ slug: 'index' }}><a>Products</a></Link></li>
-            <li><button onClick={() => Router.pushRoute('about', { foo: 'bar' })} className="btn btn-primary">About foo bar</button></li>
-            <li><button onClick={() => Router.pushRoute('about', { foo: 'baz' })} className="btn btn-primary">About foo baz</button></li>
-          </ul>
         </section>
 
         <section className="row text-center placeholders">

@@ -1,10 +1,10 @@
-import React from 'react'
-
 import Layout from '../components/layout'
 
+import React from 'react'
+
 const posts = [
-  { slug: 'Indoor_Cameras', title: 'Indoor Cameras' },
-  { slug: 'Outdoor_Cameras', title: 'Outdoor Cameras' }
+  { slug: 'hello-world', title: 'Hello world' },
+  { slug: 'another-blog-post', title: 'Another blog post' }
 ]
 
 export default class extends React.Component {
@@ -21,7 +21,7 @@ export default class extends React.Component {
   render () {
     const { post } = this.props
 
-    if (!post) return <Layout><h1>Products</h1></Layout>
+    if (!post) return <Layout><h1>Post not found</h1></Layout>
 
     return <Layout><h1>{post.title}</h1></Layout>
   }

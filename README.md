@@ -25,6 +25,12 @@ There are many different [examples available](https://github.com/zeit/next.js/tr
 ---
 
 
+
+
+![](./next_01.png)
+The final Application
+
+
 __TOC__
 
 01. [Basic Setup](#01-basic-setup)
@@ -391,15 +397,18 @@ As we already see, Next.js builds routes for each component it finds inside the 
 * next-routes: a neat little [npm module](https://www.npmjs.com/package/next-routes) from also featured as an [Example @Zeit](https://github.com/zeit/next.js/tree/master/examples/with-next-routes).
 * Using an Express.js webserver as featured [@Zeit](https://github.com/zeit/next.js/tree/master/examples/custom-server-express) and [@Medium](https://medium.com/@diamondgfx/nextjs-lessons-learned-part-2-f1781237cf5c)
 
-Lets try out __next-routes__ for this example:
+~~Lets try out __next-routes__ for this example:~~
 
-```
-npm install next-routes --save
-```
+
+~~npm install next-routes --save~~
+
 
 __Ok, this basically wrecked the whole application__
 
-I will copy the code to _./next-routes-wtf_ and - maybe try it again later... The result is very inconsistent. You can click on a link and the page loads just fine. If you click on the same link again, or just reload the page, or copy it's URL into another browser, you are very likely to end up seeing the 404 page.
+I will copy the code to _./next-routes-wtf_ and - maybe - try it again later... The result is very inconsistent. You can click on a link and the page loads just fine. If you click on the same link again, or just reload the page, or copy it's URL into another browser, you are very likely to end up seeing the 404 page.
+
+**Update** It might just have been the way I linked components - the solution, that is coming up below, showed a similar behaviour, when you forget the "as=" attribute in a link tag.
+
 
 
 Ok - so lets try Express.js now, since I wanted to use it for deployment anyhow. [Brandon Richey](https://medium.com/@diamondgfx/nextjs-lessons-learned-part-2-f1781237cf5c) says, that he ran into the same problems I had with _next-routes_, when using the [official documentation](https://github.com/zeit/next.js/tree/master/examples) for the _custom server.js_ setup. So I will stay away from it for now and try his version.
@@ -410,26 +419,31 @@ First install [Express.js](http://expressjs.com) from npm:
 npm install --save express
 ```
 
-then edit _./server.js_ to the following:
+then create _./server.js_:
 
 ```js
 const express = require('express');
 const { parse } = require('url');
 const next = require('next');
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
 app.prepare().then(() => {
   const server = express();
+
   // CUSTOM ROUTES GO HERE
-  server.get('/products/:slug', (req, res) => {
+  server.get('/Products/:slug', (req, res) => {
     const mergedQuery = Object.assign({}, req.query, req.params);
-    return app.render(req, res, '/products', mergedQuery);
+    return app.render(req, res, '/Products', mergedQuery);
   });
+
   // THIS IS THE DEFAULT ROUTE, DON'T EDIT THIS
   server.get('*', (req, res) => {
     return handle(req, res);
   });
+
   const port = process.env.PORT || 3000;
 
   server.listen(port, err => {
@@ -437,27 +451,67 @@ app.prepare().then(() => {
     console.log(`> Ready on port ${port}...`);
   });
 });
+
 ```
 
 This will give you a param that gets sent to your blog.js component inside of your pages/ directory and give you the custom routing that you want! The client-side linking, assuming we have the route setup above /products/:slug, your links to specific slugs would need to be structure using next/link’s Link component via the following:
 
 ```js
-<Link href={`/blog?slug=${slug}`} as={`/blog/${slug}`} prefetch>
+<Link href={`/base?slug=${slug}`} as={`/base/${slug}`} prefetch>
   ...
 </Link>
+```
+
+e.g.
+
+```js
+<Link href={`/Products?slug=${'Outdoor_Cameras'}`} as={`/Products/${'Outdoor_Cameras'}`} prefetch>
 ```
 
 __as__ is what the user will see in their browser, but __href__ is what next.js will interpret to figure out how things need to get routed. _Both of these steps are required to make the link behavior and routing behavior behave the same no matter where the page is rendered from!_
 
 
+Now create a Product component in _./pages/Products.js_:
+
+```js
+import React from 'react'
+
+import Layout from '../components/layout'
+
+const posts = [
+  { slug: 'Indoor_Cameras', title: 'Indoor Cameras' },
+  { slug: 'Outdoor_Cameras', title: 'Outdoor Cameras' }
+]
+
+export default class extends React.Component {
+  static async getInitialProps ({ query, res }) {
+    const post = posts.find(post => post.slug === query.slug)
+
+    if (!post && res) {
+      res.statusCode = 404
+    }
+
+    return { post }
+  }
+
+  render () {
+    const { post } = this.props
+
+    if (!post) return <Layout><h1>Products</h1></Layout>
+
+    return <Layout><h1>{post.title}</h1></Layout>
+  }
+}
+```
+
+This will load the corresponding posts when you add the right slugs for it - _/Products/Outdoor_Cameras_ or _/Products/Indoor_Cameras_ or defaults to whatever you add here: _if (!post) return \<Layout\>\<h1\>Products\</h1\>\</Layout\>_ in case that no match is found.
 
 Finally, you’ll need to modify your package.json file to include everything so that next.js knows how to run the server.js file:
 
 ```
 "scripts": {
-  "dev": "node server.js",
   "build": "next build",
-  "start": "NODE_ENV=production node server.js",
+  "start": "node server.js",
 }
 ```
 

@@ -12,13 +12,13 @@ const NavBar = () => (
       <div className="collapse navbar-collapse" id="TopNavbar">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link href="/products/outdoor-cameras"><a className="nav-item nav-link">Outdoor Cameras</a></Link>
+            <Link href={`/Products?slug=${'Outdoor_Cameras'}`} as={`/Products/${'Outdoor_Cameras'}`} prefetch><a className="nav-item nav-link">Outdoor Cameras</a></Link>
           </li>
           <li className="nav-item">
-            <Link href="/page-2"><a className="nav-item nav-link">Page 2</a></Link>
+            <Link href={`/Products?slug=${'Indoor_Cameras'}`} as={`/Products/${'Indoor_Cameras'}`} prefetch><a className="nav-item nav-link">Indoor Cameras</a></Link>
           </li>
           <li className="nav-item">
-            <Link href="/nested-routes"><a className="nav-item nav-link">Nested Routes</a></Link>
+            <Link href={`/blog?slug=${'hello-world'}`} as={`/blog/${'hello-world'}`} prefetch><a className="nav-item nav-link">Hello World</a></Link>
           </li>
         </ul>
       </div>
